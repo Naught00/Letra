@@ -11,7 +11,8 @@ int main(int argc, char* argv[]) {
     
     char buffer[255];
 
-    while (1) {
+    int done = 0;
+    while (!done) {
         char *input = readline(":");
 
         switch (*input) {
@@ -24,7 +25,7 @@ int main(int argc, char* argv[]) {
                 break;
 
             case 'q' :
-                return 0;
+                done = 1;
         }
 
     }
