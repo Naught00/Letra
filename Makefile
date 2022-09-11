@@ -1,2 +1,2 @@
 all:
-	gcc -lreadline src/*.c -o abre
+	gcc -g -lreadline src/*.c -o abre

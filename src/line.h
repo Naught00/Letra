@@ -3,6 +3,7 @@
 #ifndef OPERATOR_H
 #define OPERATOR_H
 
-void printall(char buffer[], FILE *f);
+void printall(FILE **f);
+void printallnum(FILE **f);
 
 #endif
