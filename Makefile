@@ -1,2 +1,3 @@
 all:
-	gcc -g -lreadline src/*.c -o abre
+	mkdir -p build
+	gcc -lreadline src/*.c -o build/abre

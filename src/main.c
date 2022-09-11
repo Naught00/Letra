@@ -8,8 +8,6 @@ int main(int argc, char* argv[]) {
     char mode = 'r';
     char file_name[100];
 
-    char buffer[255];
-
     int e = 0;
     
     int done = 0;
