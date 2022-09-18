@@ -2,50 +2,41 @@
 #include<string.h>
 #include<readline/readline.h>
 #include "line.h"
+#define MAX_FILE_NAME 100
 
 int main(int argc, char* argv[]) {
     FILE *f;
-    char mode = 'r';
-    char file_name[100];
+    char mode[] = "r+";
+    char buffer[255][1000];
 
-    int e = 0;
-    
+    if (argc == 2) {
+        f = fopen(argv[1], mode);
+    } 
+
     int done = 0;
+
     while (!done) {
-        char *input = readline("");
+        char *input = readline("> ");
 
         switch (*input) {
             case 'p' : {
-                if (e) {
-                    f = fopen(file_name, &mode);
-                    printall(&f);
-                    fclose(f);
-                } else {
-                    f = fopen(argv[1], &mode);
-                    printall(&f);
-                    fclose(f);
-                }
+                printall(f);
+                rewind(f);
+                break;
             }
-                break;
 
-            case 'n' :
-                if (e) {
-                    f = fopen(file_name, &mode);
-                    printallnum(&f);
-                    fclose(f);
-                } else {
-                    f = fopen(argv[1], &mode);
-                    printallnum(&f);
-                    fclose(f);
-                }
+            case 'n' : {
+                printallnum(f);
+                rewind(f);
                 break;
-
+            }
+                
             case 'e' : {
+                char file_name[MAX_FILE_NAME];
                 int len = strlen(input);
                 int ans = len - 2;
 
                 int i = 0;
-                e = 1;
                 if (input[0] == 'e' && input[1] == ' ') {
                     for (i = 0; i <= ans; i++) {
                         file_name[i] = input[i+2];
@@ -53,10 +44,28 @@ int main(int argc, char* argv[]) {
                             file_name[i] = '\0';
                         }
                     }
-                }
+                } else 
+                    printf("?\n");
+
+                f = fopen(file_name, mode);
 
                 
                 break;
+            }
+
+            case 'c' : {
+                if (input[1] == '4') {
+                    fseek(f, 80, SEEK_SET);
+
+                    char *newline = readline("");
+
+                    int i;
+                    for (i = 0; i < strlen(newline); i++)
+                            putc(newline[i], f);
+                
+                    rewind(f);
+                    break;
+                }
             }
 
             default : {
@@ -68,6 +77,10 @@ int main(int argc, char* argv[]) {
                 done = 1;
                 break;
             }
+            case 't' : {
+                break;
+            }
         }
     }
+    fclose(f);
 }
