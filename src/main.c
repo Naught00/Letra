@@ -1,16 +1,19 @@
 #include<stdio.h>
 #include<string.h>
 #include<readline/readline.h>
-#include "line.h"
+#include "file.h"
+#include "buffer.h"
 #define MAX_FILE_NAME 100
+
 
 int main(int argc, char* argv[]) {
     FILE *f;
     char mode[] = "r+";
-    char buffer[255][1000];
 
     if (argc == 2) {
         f = fopen(argv[1], mode);
+        load_buffer(f);
+        print_buffer();
     } 
 
     int done = 0;
@@ -20,14 +23,12 @@ int main(int argc, char* argv[]) {
 
         switch (*input) {
             case 'p' : {
-                printall(f);
-                rewind(f);
+                           print_buffer();
                 break;
             }
 
             case 'n' : {
-                printallnum(f);
-                rewind(f);
+                           print_buffer_with_numbers();
                 break;
             }
                 
