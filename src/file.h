@@ -6,6 +6,6 @@
 
 void printallfile(FILE *f);
 void printfilenum(FILE *f);
-void print_buffer_with_numbers();
+void print_buffer_with_numbers(void);
 
 #endif

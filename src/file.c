@@ -20,12 +20,16 @@ void printfilenum(FILE *f) {
     }
 }
 
-void print_buffer_with_numbers()
+void print_buffer_with_numbers(void)
 {
     int i, x;
     char c;
-    
-    printf("%d\n", total_lines);
+
+    if (total_lines == 0) {
+        printf("?\n");
+        return;
+    }
+
     printf("1\t");
     for (i = 1, x = 1; x <= total_lines;) {
         c = buffer[i][x];

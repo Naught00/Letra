@@ -7,5 +7,6 @@ extern char buffer[255][1000];
 extern int total_lines;
 void load_buffer(FILE *f);
 void print_buffer(void);
+void clear_buffer(void);
 
 #endif
