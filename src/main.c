@@ -3,6 +3,7 @@
 #include<readline/readline.h>
 #include "file.h"
 #include "buffer.h"
+#include "text.h"
 #define MAX_FILE_NAME 100
 
 
