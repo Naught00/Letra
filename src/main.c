@@ -19,6 +19,10 @@ int main(int argc, char* argv[]) {
 
     while (!done) {
         char *input = readline("> ");
+        
+        /* Switch statement relies on 'dropoff' between cases
+         * You could also do this with one big if else 
+         * */
 
         switch (input[0]) {
             case 'p' : 
@@ -27,7 +31,6 @@ int main(int argc, char* argv[]) {
                         print_buffer();
                         break;
                     }
-                    
                 }
 
             case 'n' :
@@ -40,27 +43,23 @@ int main(int argc, char* argv[]) {
                 
             case 'e' : 
                 {
-                    if (input[1] == '\0') {
+                    if (input[0] == 'e' && input[1] == ' ') {
                         char file_name[MAX_FILE_NAME];
                         int len = strlen(input);
                         int ans = len - 2;
 
                         int i = 0;
-                        if (input[0] == 'e' && input[1] == ' ') {
-                            for (i = 0; i <= ans; i++) {
-                                file_name[i] = input[i+2];
-                                if (i == (ans)) {
-                                    file_name[i] = '\0';
-                                }
+                        for (i = 0; i <= ans; i++) {
+                            file_name[i] = input[i+2];
+                            if (i == (ans)) {
+                                file_name[i] = '\0';
                             }
-                        } else 
-                            printf("?\n");
-
+                        }
                         clear_buffer();
                         f = fopen(file_name, mode);
                         load_buffer(f);
                         break;
-                    }
+                    } 
             }
 
             case 'c' : {
