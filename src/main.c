@@ -6,7 +6,6 @@
 #include "text.h"
 #define MAX_FILE_NAME 100
 
-
 int main(int argc, char* argv[]) {
     FILE *f = NULL;
     char mode[] = "r+";
@@ -22,8 +21,7 @@ int main(int argc, char* argv[]) {
         char *input = readline("> ");
         
         /* Switch statement relies on 'dropoff' between cases
-         * You could also do this with one big if else 
-         * */
+         * Not sure if genius or insane */
 
         switch (input[0]) {
             case 'p' : 
@@ -63,30 +61,32 @@ int main(int argc, char* argv[]) {
                     } 
             }
 
-            case 'c' : {
-                if (input[1] == '4') {
-                    fseek(f, 80, SEEK_SET);
+            case 'c' :
+                {
+                    if (input[1] == '4') {
+                        fseek(f, 80, SEEK_SET);
 
-                    char *newline = readline("");
+                        char *newline = readline("");
 
-                    int i;
-                    for (i = 0; i < strlen(newline); i++)
-                            putc(newline[i], f);
-                
-                    rewind(f);
+                        int i;
+                        for (i = 0; i < strlen(newline); i++)
+                                putc(newline[i], f);
+                    
+                        rewind(f);
+                        break;
+                    }
+                }
+
+            default :
+                {
+                    printf("?\n");
                     break;
                 }
-            }
-
-            default : {
-                printf("?\n");
-                break;
-            }
-
-            case 'q' : {
-                done = 1;
-                break;
-            }
+            case 'q' :
+                {
+                    done = 1;
+                    break;
+                }
         }
     }
     if (f != NULL)
