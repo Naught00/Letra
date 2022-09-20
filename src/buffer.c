@@ -3,7 +3,7 @@
 #include<string.h>
 #include "buffer.h"
 
-char buffer[255][1000];
+char buffer[MAX_CHAR_PER_LINE][1000];
 int total_lines;
 
 /* Takes file and loads into buffer 
@@ -29,12 +29,29 @@ void load_buffer(FILE *f)
     
     /* EOF gets counted as one line 
      * This should fix that */
-    total_lines = total_lines - 1;
+    total_lines--;
     printf("%d\n", total_lines);
+
+    /* Rewind the file on disk for later
+     * This ensures that the disk */
+    rewind(f);
 
 }
 
 void clear_buffer(void)
 {
-    memset(buffer, 0, sizeof(buffer[255][1000]) * 255 * 1000);
+    memset(buffer, 0, sizeof(buffer[MAX_CHAR_PER_LINE][1000]) * MAX_CHAR_PER_LINE * 1000);
 }
+
+void clear_buffer_line(int line)
+{
+    //memset(buffer[line], 0, sizeof(buffer[line]));
+
+    int i;
+    for (i = 1; i <= MAX_CHAR_PER_LINE; i++)
+        memset(buffer, 0, sizeof(buffer[i][line]));
+
+  
+//    buffer[5][line] = 'c';
+}
+

@@ -1,5 +1,8 @@
 #include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
 #include "file.h"
+#include "buffer.h"
 
 void printallfile(FILE *f) {
     char filebuffer[255];
@@ -19,3 +22,23 @@ void printfilenum(FILE *f) {
     }
 }
 
+void write_buffer_to_file(FILE *f)
+{
+    int ch;
+    char c;
+    int lines;
+
+    for (ch = 1, lines = 1; lines <= total_lines;) {
+        printf("%c, %d, %d\n", c , ch, total_lines);
+        c = buffer[ch][total_lines];
+        putc(c, f);
+
+        if (c == '\n') {
+            lines++;
+            ch = 1;
+        } else {
+            ch++;
+        }
+    }
+    fclose(f);
+}
