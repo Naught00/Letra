@@ -27,7 +27,7 @@ Letra supports scripting for its various commands. For example, the script:
     w 
     q' | letra
 
-Would change line 5 directly from the command line.
+Would change line 5 directly from the command line to 'line 5'.
 
 # External Commands
 Letra can call commands from your system's enviroment directly. This, for
