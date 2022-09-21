@@ -24,21 +24,22 @@ void printfilenum(FILE *f) {
 
 void write_buffer_to_file(FILE *f)
 {
-    int ch;
+    int i, x;
     char c;
-    int lines;
+    printf("%d\n", total_lines);
+    if (total_lines == 0)
+        printf("?\n");
 
-    for (ch = 1, lines = 1; lines <= total_lines;) {
-        printf("%c, %d, %d\n", c , ch, total_lines);
-        c = buffer[ch][total_lines];
-        putc(c, f);
-
+    for (i = 1, x = 1; x <= total_lines;) {
+        c = buffer[i][x];
         if (c == '\n') {
-            lines++;
-            ch = 1;
+            x++;
+            i = 1;
+            putc(c, f);
         } else {
-            ch++;
+            i++;
+            putc(c, f);
         }
     }
-    fclose(f);
+    rewind(f);
 }

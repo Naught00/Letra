@@ -79,11 +79,44 @@ int main(int argc, char* argv[]) {
                 }
             case 'a' :
                 {
-                    if (input[1] == '\0') {
-                        total_lines++;
+                    if (input[1] == 'b') {
+
+                        char * in;
+                        int lines_to_append = 1;
+                        int i, ch;
+                        int done = 0;
+
+                        while (!done) {
+                            char *in = readline("");
+
+                            if (in[0] != '.') {
+                                for (ch = 1, i = 0;; i++) {
+                                    if (in[i] == '\0') {
+                                        int lines = total_lines + lines_to_append;
+                                        printf("lines %d\n", lines);
+                                        buffer[ch][(total_lines+lines_to_append)] = '\n';
+                                        break;
+                                    } else if (in[i] != '\0')
+                                        buffer[ch][(total_lines+lines_to_append)] = in[i];
+                                        ch++;
+                                }
+                            }
+                            
+                            if (in[0] != '.') {
+                                lines_to_append++;
+                            } else {
+                                /* You are left with an extra line in lines_to_append
+                                 * due to the above if statement evaluating to true
+                                 * on the first input. lines_to_append is prefixed
+                                 * with -- to subtract before being evaluated */
+                                total_lines = total_lines + --lines_to_append;
+                                done = 1;
+                            }
+                        }
                         break;
                     }
                 }
+
 
             case 'c' :
                 {
@@ -101,8 +134,8 @@ int main(int argc, char* argv[]) {
                         int ch, i;
                         for (ch = 1, i = 0;; ch++, i++) {
                             if (changed_line[i] == '\0') {
-                                buffer[ch][line] = changed_line[i];
-                                buffer[ch+1][line] = '\n';
+                                // buffer[ch][line] = changed_line[i];
+                                buffer[ch][line] = '\n';
                                 break;
                             }
                             buffer[ch][line] = changed_line[i];
@@ -117,7 +150,7 @@ int main(int argc, char* argv[]) {
 
                 case '!' :
                 {
-                    if (isalpha(input[1])) {
+                    if (input[0] == '!') {
                     int d, c;
                     char shell_buffer[100]; 
 
@@ -143,6 +176,14 @@ int main(int argc, char* argv[]) {
                     }
                 }
 
+            case 'd' :
+                {
+                    if (isdigit(input[1]) && input[0] == 'd') {
+                        clear_buffer_line(input[1]);
+                        break;
+                    }
+                }
+
             default :
                 {
                     printf("?\n");
@@ -155,6 +196,6 @@ int main(int argc, char* argv[]) {
                 }
         }
     }
-//    if (f != NULL)
-//        fclose(f);
+    if (f != NULL)
+        fclose(f);
 }
