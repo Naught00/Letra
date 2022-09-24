@@ -39,12 +39,19 @@ int main(int argc, char* argv[]) {
     while (!done) {
         char *input = readline("> ");
         
+        int fg;
+        for (fg = 0; fg < (1 + strlen(input)); fg++)
+            printf("%d\n", input[fg]);
+        
         /* Note: This switch statement relies on 'dropoff' between cases */
         switch (input[0]) {
             case 'p' : 
                 {
                     if (input[1] == '\0') {
                         print_buffer();
+                        break;
+                    } else if (input[1] == 'h') {
+                        print_buffer_highlight();
                         break;
                     }
                 }

@@ -15,6 +15,7 @@
  */
 
 #include<stdio.h>
+#include <string.h>
 #include "text.h"
 #include "buffer.h"
 
@@ -63,4 +64,42 @@ void print_buffer(void)
             putchar(c);
         }
     }
+}
+void print_buffer_highlight(void)
+{
+    int i, x, strc;
+    char c;
+    char highlighted_buffer[255][1000];
+
+    printf("%d\n", total_lines);
+    if (total_lines == 0)
+        printf("?\n");
+
+    for (i = 1, x = 1, strc = 0; x <= total_lines;) {
+        c = buffer[i][x];
+        if (c == '\n') {
+            highlighted_buffer[i][x] = c;
+            x++;
+            i = 1;
+            putchar(c);
+        } else {
+            highlighted_buffer[i][x] = c;
+            i++;
+            putchar(c);
+        }
+    }
+    printf("buffer[2][2] == %c\n", buffer[2][1]);
+    printf("highlighted_buffer[2][2] == %c\n", highlighted_buffer[2][1]);
+    for (i = 1, x = 1, strc = 0; x <= total_lines;) {
+        c = highlighted_buffer[i][x];
+        if (c == '\n') {
+            x++;
+            i = 1;
+            putchar(c);
+        } else {
+            i++;
+            putchar(c);
+        }
+    }
+    
 }

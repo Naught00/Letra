@@ -21,5 +21,6 @@
 
 void print_buffer_with_numbers(void);
 void print_buffer(void);
+void print_buffer_highlight(void);
 
 #endif
