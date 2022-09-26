@@ -49,7 +49,9 @@ void print_buffer(void)
 {
     int i, x;
     char c;
+#ifdef DEBUG
     printf("%d\n", total_lines);
+#endif
     if (total_lines == 0)
         printf("?\n");
 
@@ -101,5 +103,4 @@ void print_buffer_highlight(void)
             putchar(c);
         }
     }
-    
 }

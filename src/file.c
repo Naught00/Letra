@@ -42,7 +42,9 @@ void write_buffer_to_file(FILE *f)
 {
     int i, x;
     char c;
+#ifdef DEBUG
     printf("%d\n", total_lines);
+#endif
     if (total_lines == 0)
         printf("?\n");
 

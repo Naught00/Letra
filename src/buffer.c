@@ -32,7 +32,9 @@ void load_buffer(FILE *f)
     char c;
 
     for (ch = 1, total_lines = 1; c != EOF;) {
+#ifdef DEBUG
         printf("%c, %d, %d\n", c , ch, total_lines);
+#endif
         c = buffer[ch][total_lines] = getc(f);
 
         if (c == '\n') {
@@ -46,7 +48,9 @@ void load_buffer(FILE *f)
     /* EOF gets counted as one line 
      * This should fix that */
     total_lines--;
+#ifdef DEBUG
     printf("%d\n", total_lines);
+#endif
 
     /* Rewind the file on disk for later
      * This ensures that the disk head is at

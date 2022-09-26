@@ -27,6 +27,9 @@
 int main(int argc, char* argv[]) {
     FILE *f = NULL;
     char mode[] = "r+";
+#ifdef DEBUG
+    printf("DEBUG MODE\n");
+#endif
     char command_buffer[10];
 
     if (argc == 2) {
@@ -34,14 +37,19 @@ int main(int argc, char* argv[]) {
         load_buffer(f);
     } 
 
+    char *input;
     int done = 0;
 
     while (!done) {
-        char *input = readline("> ");
+        input = readline("> ");
         
+        /* Clear input before each command. */
+
+#ifdef DEBUG
         int fg;
         for (fg = 0; fg < (1 + strlen(input)); fg++)
             printf("%d\n", input[fg]);
+#endif
         
         /* Note: This switch statement relies on 'dropoff' between cases */
         switch (input[0]) {
@@ -83,7 +91,7 @@ int main(int argc, char* argv[]) {
                         load_buffer(f);
                         break;
                     } 
-            }
+                }
 
             case 'm' :
                 {
@@ -116,7 +124,9 @@ int main(int argc, char* argv[]) {
                                 for (ch = 1, i = 0;; i++) {
                                     if (in[i] == '\0') {
                                         int lines = total_lines + lines_to_append;
+#ifdef DEBUG
                                         printf("lines %d\n", lines);
+#endif
                                         buffer[ch][(total_lines+lines_to_append)] = '\n';
                                         break;
                                     } else if (in[i] != '\0')
@@ -174,19 +184,22 @@ int main(int argc, char* argv[]) {
                 case '!' :
                 {
                     if (input[0] == '!') {
-                    int d, c;
-                    char shell_buffer[100]; 
+                        int d, c;
+                        char shell_buffer[100]; 
 
-                    for (d = 1, c = 0; input[d] != '\0'; d++, c++) {
-                        shell_buffer[c] = input[d];
-                    }
+                        for (d = 1, c = 0; input[d] != '\0'; d++, c++) {
+                            shell_buffer[c] = input[d];
+                        }
 
-                    system(shell_buffer);
-                    /* Clears shell buffer after each command.
-                     * This ensures there is no 'leakage' 
-                     * between calls.                       */
-                    memset(shell_buffer, 0, sizeof shell_buffer);
-                    break;
+                        system(shell_buffer);
+                        /* Clears shell buffer after each command.
+                         * This ensures there is no 'leakage' 
+                         * between calls.                       
+                         */
+                        int i;
+                        for (i = 0; i < strlen(shell_buffer); i++)
+                            shell_buffer[i] = 0;
+                        break;
                     }
                 }
                     
@@ -194,7 +207,12 @@ int main(int argc, char* argv[]) {
                 {
                     if (input[1] == '\0') {
                         write_buffer_to_file(f);
-                        printf("saved\n");
+                        printf("File written to disk\n");
+                        break;
+                    }
+                    if (input[1] == 'q' && input[0] == 'w') {
+                        write_buffer_to_file(f);
+                        done = 1;
                         break;
                     }
                 }
