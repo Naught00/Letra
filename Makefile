@@ -1,6 +1,6 @@
 all:
 	mkdir -p build
-	gcc -lreadline src/*.c -o build/letra
+	gcc src/*.c -o build/letra -lreadline
 run:
 	mkdir -p build
 	gcc -lreadline src/*.c -o build/letra
