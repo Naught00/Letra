@@ -103,4 +103,9 @@ void print_buffer_highlight(void)
             putchar(c);
         }
     }
+    
+#ifdef DEBUG
+    char testline[] = "\e[1;32mint \e[0;30mmain(\e[1;32mvoid\e[0;30m) {\n\t\e[1;33mreturn \e[1;31m0\e[0;30m;\n\e[0;30m}\n";
+    printf("%s", testline);
+#endif
 }

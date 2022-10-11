@@ -77,3 +77,25 @@ void clear_buffer_line(int line)
 
 }
 
+void jolt_buffer(char buffer_to_append[255][100], int lines_to_append, int l)
+{
+    int i, x, count;
+    char c;
+#ifdef DEBUG
+    printf("%d\n", total_lines);
+#endif
+    if (total_lines == 0)
+        printf("?\n");
+
+    for (i = 1, x = l, count = 0; count <= lines_to_append; count++) {
+        c = buffer_to_append[i][x];
+        if (c == '\n') {
+            x++;
+            i = 1;
+            putchar(c);
+        } else {
+            i++;
+            putchar(c);
+        }
+    }
+} 

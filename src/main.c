@@ -19,9 +19,10 @@
 #include<stdlib.h>
 #include<string.h>
 #include<readline/readline.h>
-#include "file.h"
+#include "append.h"
 #include "buffer.h"
 #include "text.h"
+#include "file.h"
 #define MAX_FILE_NAME 100
 
 int main(int argc, char* argv[]) {
@@ -53,7 +54,7 @@ int main(int argc, char* argv[]) {
         
         /* Note: This switch statement relies on 'dropoff' between cases */
         switch (input[0]) {
-            case 'p' : 
+            case 'p' :
                 {
                     if (input[1] == '\0') {
                         print_buffer();
@@ -72,7 +73,7 @@ int main(int argc, char* argv[]) {
                     }
                 }
                 
-            case 'e' : 
+            case 'e' :
                 {
                     if (input[0] == 'e' && input[1] == ' ') {
                         char file_name[MAX_FILE_NAME];
@@ -111,43 +112,16 @@ int main(int argc, char* argv[]) {
             case 'a' :
                 {
                     if (input[1] == 'b') {
-
-                        char * in;
-                        int lines_to_append = 1;
-                        int i, ch;
-                        int done = 0;
-
-                        while (!done) {
-                            char *in = readline("");
-
-                            if (in[0] != '.') {
-                                for (ch = 1, i = 0;; i++) {
-                                    if (in[i] == '\0') {
-                                        int lines = total_lines + lines_to_append;
-#ifdef DEBUG
-                                        printf("lines %d\n", lines);
-#endif
-                                        buffer[ch][(total_lines+lines_to_append)] = '\n';
-                                        break;
-                                    } else if (in[i] != '\0')
-                                        buffer[ch][(total_lines+lines_to_append)] = in[i];
-                                        ch++;
-                                }
-                            }
-                            
-                            if (in[0] != '.') {
-                                lines_to_append++;
-                            } else {
-                                /* You are left with an extra line in lines_to_append
-                                 * due to the above if statement evaluating to true
-                                 * on the first input. lines_to_append is prefixed
-                                 * with -- to subtract before being evaluated */
-                                total_lines = total_lines + --lines_to_append;
-                                done = 1;
-                            }
-                        }
+                        append_bottom();
                         break;
                     }
+                        if (input[0] == 'a' && isdigit(input[1])) {
+                            int l;
+                            l = atoi(&input[1]);
+                            append_line(l);
+                            break;
+                    }
+
                 }
 
 

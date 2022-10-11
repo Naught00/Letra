@@ -14,12 +14,10 @@
  * with this program. If not, see <https://opensource.org/licenses/EUPL-1.2>.
  */
 
-#ifndef FILE_H
-#define FILE_H
-#include <stdio.h>
+#ifndef APPEND_H
+#define APPEND_H
 
-void printallfile(FILE *f);
-void printfilenum(FILE *f);
-void write_buffer_to_file(FILE *f);
+void append_bottom(void);
+void append_line(int l);
 
 #endif

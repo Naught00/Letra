@@ -24,5 +24,6 @@ extern int total_lines;
 void load_buffer(FILE *f);
 void clear_buffer(void);
 void clear_buffer_line(int line);
+void jolt_buffer(char[255][100], int lines_to_append, int l);
 
 #endif
