@@ -21,5 +21,6 @@
 void printallfile(FILE *f);
 void printfilenum(FILE *f);
 void write_buffer_to_file(FILE *f);
+char *trim(char *name);
 
 #endif

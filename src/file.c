@@ -61,3 +61,17 @@ void write_buffer_to_file(FILE *f)
     }
     rewind(f);
 }
+
+char * trim(char * name)
+{
+	int i;
+
+	if (name[strlen(name) - 1] == ' ') {
+		name[strlen(name) - 1] = 0;
+	}
+
+	return name;
+}
+
+
+

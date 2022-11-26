@@ -88,6 +88,15 @@ int main(int argc, char* argv[]) {
                             }
                         }
                         clear_buffer();
+			*file_name = *trim(file_name);
+
+			#ifdef DEBUG
+			printf("name: %s\n", file_name);
+			for (i = 0; i < strlen(file_name); i++) {
+				printf("%c\n", file_name[i]);
+			}
+			#endif
+
                         f = fopen(file_name, mode);
                         load_buffer(f);
                         break;
