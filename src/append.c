@@ -4,11 +4,6 @@
 #include "buffer.h"
 #include "file.h"
 
-void space(void)
-{
-	rl_insert_text("	");
-}
-
 void append_bottom(void)
 {
     char * in;
@@ -17,7 +12,7 @@ void append_bottom(void)
     int done = 0;
 
     while (!done) {
-	rl_bind_key ('\t', space);
+	rl_bind_key ('\t', rl_insert);
         char *in = readline("");
 
 	if (*in == 0) {
